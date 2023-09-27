@@ -28,6 +28,8 @@ func main() {
 
 	ic.Run()
 
+	time.Sleep(time.Second * 1)
+
 	contract := Contract{Symbol: "EUR", SecurityType: "CASH", Currency: "GBP", Exchange: "IDEALPRO"}
 	fmt.Println("contract:", contract)
 
@@ -45,10 +47,16 @@ func main() {
 	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder_buy)
 
 	mktOrder_sell := NewMarketOrder("SELL", quantity)
-	lmtOrder_sell := NewLimitOrder("SELL", 144, quantity)
+	lmtOrder_sell := NewLimitOrder("SELL", 10, quantity)
 
 	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, mktOrder_sell)
 	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder_sell)
+
+	time.Sleep(time.Second * 5)
+
+	fmt.Println(" ================= Requesting open orders ================= ")
+
+	ic.ReqOpenOrders()
 
 	ic.LoopUntilDone()
 }
