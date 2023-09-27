@@ -37,10 +37,18 @@ func main() {
 
 	quantity, err := decimal.NewFromString("1")
 	fmt.Println("quantity:", quantity, "err:", err)
-	mktOrder := NewMarketOrder("BUY", quantity)
-	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, mktOrder)
-	lmtOrder := NewLimitOrder("BUY", 144, quantity)
-	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder)
+
+	mktOrder_buy := NewMarketOrder("BUY", quantity)
+	lmtOrder_buy := NewLimitOrder("BUY", 144, quantity)
+
+	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, mktOrder_buy)
+	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder_buy)
+
+	mktOrder_sell := NewMarketOrder("SELL", quantity)
+	lmtOrder_sell := NewLimitOrder("SELL", 144, quantity)
+
+	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, mktOrder_sell)
+	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder_sell)
 
 	ic.LoopUntilDone()
 }
