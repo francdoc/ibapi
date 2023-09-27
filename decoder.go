@@ -581,9 +581,8 @@ func (d *ibDecoder) processOpenOrder(msgBuf *MsgBuffer) {
 	o.Action = msgBuf.readString()
 	if d.version >= mMIN_SERVER_VER_FRACTIONAL_POSITIONS {
 		o.TotalQuantity = msgBuf.readDecimal()
-	} else {
-		o.TotalQuantity = msgBuf.readDecimal()
 	}
+
 	o.OrderType = msgBuf.readString()
 	if version < 29 {
 		o.LimitPrice = msgBuf.readFloat()
@@ -1911,8 +1910,6 @@ func (d *ibDecoder) processCompletedOrderMsg(msgBuf *MsgBuffer) {
 
 	o.Action = msgBuf.readString()
 	if d.version >= mMIN_SERVER_VER_FRACTIONAL_POSITIONS {
-		o.TotalQuantity = msgBuf.readDecimal()
-	} else {
 		o.TotalQuantity = msgBuf.readDecimal()
 	}
 

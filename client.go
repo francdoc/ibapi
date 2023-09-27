@@ -987,8 +987,6 @@ func (ic *IbClient) PlaceOrder(orderID int64, contract *Contract, order *Order) 
 
 	if ic.serverVersion >= mMIN_SERVER_VER_FRACTIONAL_POSITIONS {
 		fields = append(fields, order.TotalQuantity)
-	} else {
-		fields = append(fields, order.TotalQuantity)
 	}
 
 	fields = append(fields, order.OrderType)

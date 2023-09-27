@@ -33,10 +33,14 @@ func main() {
 
 	ic.ReqTickByTickData(1, &contract, "BidAsk", 0, true)
 
+	ic.ReqAutoOpenOrders(true)
+
 	quantity, err := decimal.NewFromString("1")
 	fmt.Println("quantity:", quantity, "err:", err)
 	mktOrder := NewMarketOrder("BUY", quantity)
 	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, mktOrder)
+	lmtOrder := NewLimitOrder("BUY", 144, quantity)
+	ic.PlaceOrder(ibwrapper.GetNextOrderID(), &contract, lmtOrder)
 
 	ic.LoopUntilDone()
 }
