@@ -1487,10 +1487,8 @@ func (ic *IbClient) ReqPositions() {
 		ic.wrapper.Error(NO_VALID_ID, UPDATE_TWS.code, UPDATE_TWS.msg+"  It does not support positions request.")
 		return
 	}
-	// v := 1
 	const v = 1
 	msg := makeMsgBytes(mREQ_POSITIONS, v)
-
 	ic.reqChan <- msg
 }
 

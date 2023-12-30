@@ -16,7 +16,7 @@ func main() {
 	defer cancel()
 	ic := NewIbClient(ibwrapper)
 	ic.SetContext(ctx)
-	err = ic.Connect("127.0.0.1", 7497, 0) // 7497 for TWS, 4002 for IB Gateway
+	err = ic.Connect("127.0.0.1", 4002, 0) // 7497 for TWS, 4002 for IB Gateway
 	if err != nil {
 		fmt.Println("Connect failed:", err)
 	}
@@ -34,7 +34,7 @@ func main() {
 	fmt.Println("contract:", contract)
 
 	ic.ReqTickByTickData(1, &contract, "BidAsk", 0, true)
-
+	ic.ReqHistoricalData(ic.GetReqID(), &contract, "BidAsk", "4800 S", "1 min", "TRADES", false, 1, true, nil)
 	ic.ReqAutoOpenOrders(true)
 
 	quantity, err := decimal.NewFromString("1")
@@ -54,8 +54,9 @@ func main() {
 
 	time.Sleep(time.Second * 5)
 
-	fmt.Println(" ================= Requesting open orders ================= ")
-
+	fmt.Println(" ================= Requesting positions ================= ")
+	ic.ReqPositions()
+	fmt.Println(" ================= Requesting account summary ================= ")
 	ic.ReqOpenOrders()
 
 	ic.LoopUntilDone()
