@@ -15,7 +15,7 @@ func main() {
 	defer cancel()
 	ic := NewIbClient(ibwrapper)
 	ic.SetContext(ctx)
-	err = ic.Connect("127.0.0.1", 7497, 0) // 7497 for TWS, 4002 for IB Gateway
+	err = ic.Connect("127.0.0.1", 4002, 0) // 7497 for TWS, 4002 for IB Gateway
 	if err != nil {
 		fmt.Println("Connect failed:", err)
 	}

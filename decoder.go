@@ -1266,8 +1266,8 @@ func (d *ibDecoder) processHistoricalDataMsg(msgBuf *MsgBuffer) {
 	}
 
 	d.wrapper.HistoricalDataEnd(reqID, startDatestr, endDateStr)
-
 }
+
 func (d *ibDecoder) processHistoricalDataUpdateMsg(msgBuf *MsgBuffer) {
 	reqID := msgBuf.readInt()
 	bar := &BarData{}
